@@ -1,0 +1,1 @@
+// File ini dikosongkan karena route admin panel sudah diatur di tempat lain dan pengaturan IRT sudah ada di tab Settings. 
