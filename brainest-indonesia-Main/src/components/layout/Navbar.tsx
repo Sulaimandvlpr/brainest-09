@@ -34,9 +34,11 @@ export function Navbar() {
         </div>
         <div className="flex flex-1 items-center justify-end md:justify-between gap-4">
           <nav className="hidden md:flex items-center space-x-4 lg:space-x-6">
-            <Link to="/" className="text-sm font-medium transition-colors hover:text-utbk-blue">
-              Beranda
-            </Link>
+            {!user && (
+              <Link to="/" className="text-sm font-medium transition-colors hover:text-utbk-blue">
+                Beranda
+              </Link>
+            )}
             {user && (
               <Link to="/dashboard" className="text-sm font-medium transition-colors hover:text-utbk-blue">
                 Dashboard
@@ -61,23 +63,22 @@ export function Navbar() {
                     onClick={() => setShowDropdown((v) => !v)}
                   >
                     <Avatar className="w-8 h-8 border-2 border-cyan">
-                      {user.photo ? (
-                        <AvatarImage src={user.photo} alt={user.name} />
-                      ) : (
-                        <AvatarFallback>{user.name?.[0]?.toUpperCase() || '?'}</AvatarFallback>
-                      )}
+                      <AvatarFallback>{user.name?.[0]?.toUpperCase() || '?'}</AvatarFallback>
                     </Avatar>
                     <ChevronDown className="w-4 h-4 text-cyan-300" />
                   </button>
                   {showDropdown && (
-                    <div className="absolute right-0 mt-2 w-48 bg-blue-3d-light/90 rounded-xl shadow-lg border border-cyan/30 z-50">
-                      <div className="p-4 border-b border-cyan/20">
-                        <div className="font-bold text-white">{user.name}</div>
-                        <div className="text-xs text-cyan-200">{user.role === 'admin' ? 'Admin' : 'Siswa'}</div>
+                    <div className="absolute right-0 mt-2 w-44 bg-blue-3d-light/95 rounded-md shadow-lg border border-cyan/20 z-50 py-2">
+                      <div className="px-3 py-2 border-b border-cyan/10">
+                        <div className="font-semibold text-white text-sm truncate">{user.name}</div>
+                        <div className="text-xs text-cyan-300">{user.role === 'admin' ? 'Admin' : 'Siswa'}</div>
                       </div>
-                      <Link to="/dashboard/profile" className="block px-4 py-2 text-blue-200 hover:bg-cyan/10">Profil</Link>
-                      <Link to="/dashboard/settings" className="block px-4 py-2 text-blue-200 hover:bg-cyan/10">Pengaturan</Link>
-                      <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-pink-400 hover:bg-pink-900/10">Logout</button>
+                      <button
+                        onClick={handleLogout}
+                        className="w-full text-left px-3 py-2 text-pink-400 hover:bg-pink-900/10 text-sm"
+                      >
+                        Logout
+                      </button>
                     </div>
                   )}
                 </div>
@@ -106,13 +107,15 @@ export function Navbar() {
       {isMenuOpen && (
         <div className="md:hidden fixed inset-0 top-16 z-50 bg-background">
           <div className="utbk-container py-4 flex flex-col space-y-4">
-            <Link 
-              to="/" 
-              className="text-base font-medium transition-colors hover:text-utbk-blue p-2" 
-              onClick={closeMenu}
-            >
-              Beranda
-            </Link>
+            {!user && (
+              <Link 
+                to="/" 
+                className="text-base font-medium transition-colors hover:text-utbk-blue p-2" 
+                onClick={closeMenu}
+              >
+                Beranda
+              </Link>
+            )}
             {user && (
               <Link 
                 to="/dashboard" 

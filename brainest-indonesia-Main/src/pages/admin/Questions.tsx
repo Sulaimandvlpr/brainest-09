@@ -19,7 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { FilePlus, Search, Trash, Edit } from "lucide-react";
+import { FilePlus, Search, Trash, Edit, Star } from "lucide-react";
 import { toast } from "sonner";
 
 const subtestMap: Record<string, string> = {
@@ -186,59 +186,41 @@ export default function Questions() {
       </div>
 
       {/* Table */}
-      <div className="bg-[#1e293b] rounded-md shadow">
-        <Table>
+      <div className="bg-[#0f172a] rounded-2xl border border-[#10182a] overflow-hidden shadow-none">
+        <Table className="min-w-full bg-[#0f172a]">
           <TableHeader>
             <TableRow>
-              <TableHead>Pertanyaan</TableHead>
-              <TableHead>Mata Pelajaran</TableHead>
-              <TableHead>Kategori</TableHead>
-              <TableHead>Tipe</TableHead>
-              <TableHead>Kesulitan</TableHead>
-              <TableHead className="text-right">Aksi</TableHead>
+              <TableHead className="text-white text-lg font-bold">Pertanyaan</TableHead>
+              <TableHead className="text-white text-lg font-bold">Mata Pelajaran</TableHead>
+              <TableHead className="text-white text-lg font-bold">Kategori</TableHead>
+              <TableHead className="text-white text-lg font-bold">Tipe</TableHead>
+              <TableHead className="text-white text-lg font-bold">Kesulitan</TableHead>
+              <TableHead className="text-white text-lg font-bold text-right">Aksi</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {filteredQuestions.map((question) => (
-              <TableRow key={question.id}>
-                <TableCell className="max-w-[300px] truncate">
-                  {question.question}
-                </TableCell>
-                <TableCell>{question.subject}</TableCell>
-                <TableCell>{question.category}</TableCell>
+              <TableRow key={question.id} className="hover:bg-cyan-900/10 transition">
+                <TableCell className="max-w-[300px] truncate text-white text-base">{question.question}</TableCell>
+                <TableCell className="text-cyan-100">{question.subject}</TableCell>
+                <TableCell className="text-cyan-100">{question.category}</TableCell>
+                <TableCell className="text-cyan-100">{question.type === "pilihan_ganda" ? "Pilihan Ganda" : "Numerik"}</TableCell>
                 <TableCell>
-                  {question.type === "pilihan_ganda"
-                    ? "Pilihan Ganda"
-                    : "Numerik"}
-                </TableCell>
-                <TableCell>
-                  <span
-                    className={`px-2 py-1 rounded-full text-xs ${
-                      question.difficulty === "mudah"
-                        ? "bg-green-100 text-green-800"
-                        : question.difficulty === "sedang"
-                        ? "bg-yellow-100 text-yellow-800"
-                        : "bg-red-100 text-red-800"
-                    }`}
-                  >
-                    {question.difficulty.charAt(0).toUpperCase() +
-                      question.difficulty.slice(1)}
+                  <span className={`inline-block px-4 py-1 rounded-full text-sm font-bold
+                    ${question.difficulty === "mudah" ? "bg-cyan-200 text-cyan-900" : ""}
+                    ${question.difficulty === "sedang" ? "bg-yellow-100 text-yellow-900" : ""}
+                    ${question.difficulty === "sulit" ? "bg-pink-100 text-red-700" : ""}
+                  `}>
+                    {question.difficulty.charAt(0).toUpperCase() + question.difficulty.slice(1)}
                   </span>
                 </TableCell>
-                <TableCell className="text-right">
-                  <div className="flex justify-end gap-2">
-                    <Button variant="outline" size="sm">
-                      <Edit className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="text-red-500 hover:text-red-700"
-                      onClick={() => handleDelete(question.id)}
-                    >
-                      <Trash className="h-4 w-4" />
-                    </Button>
-                  </div>
+                <TableCell className="flex gap-2 justify-end">
+                  <button className="rounded-full p-2 border border-cyan-400 text-cyan-300 hover:bg-cyan-800/30 shadow-md">
+                    <Edit className="w-4 h-4" />
+                  </button>
+                  <button className="rounded-full p-2 border border-pink-400 text-pink-300 hover:bg-pink-800/30 shadow-md">
+                    <Trash className="w-4 h-4" />
+                  </button>
                 </TableCell>
               </TableRow>
             ))}

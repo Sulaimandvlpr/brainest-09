@@ -80,6 +80,37 @@ const scoreDistribution = [
 
 const COLORS = ["#8884d8", "#82ca9d", "#ffc658", "#ff8042", "#0088FE", "#00C49F"];
 
+// Mapping singkatan subtest
+const subtestShortMap = {
+  "Penalaran Matematika (PM)": "PM",
+  "Literasi Bahasa Indonesia (LBI)": "LBI",
+  "Literasi Bahasa Inggris (LBE)": "LBE",
+  "Penalaran Umum (PU)": "PU",
+  "Pengetahuan Kuantitatif (PK)": "PK",
+  "Pemahaman Bacaan dan Menulis (PBM)": "PBM",
+  "Pengetahuan dan Pemahaman Umum (PPU)": "PPU",
+};
+
+// Data subtest yang valid
+const validSubtests = [
+  "Penalaran Matematika (PM)",
+  "Literasi Bahasa Indonesia (LBI)",
+  "Literasi Bahasa Inggris (LBE)",
+  "Penalaran Umum (PU)",
+  "Pengetahuan Kuantitatif (PK)",
+  "Pemahaman Bacaan dan Menulis (PBM)",
+  "Pengetahuan dan Pemahaman Umum (PPU)",
+];
+
+// Filter subjectData agar hanya 7 subtest utama
+const subjectDataFiltered = subjectData.filter(item => validSubtests.includes(item.name));
+
+// Data chart dengan label singkatan
+const subjectDataShort = subjectDataFiltered.map(item => ({
+  ...item,
+  name: subtestShortMap[item.name] || item.name,
+}));
+
 export default function Statistics() {
   const [selectedPackage, setSelectedPackage] = useState("all");
 
@@ -139,7 +170,7 @@ export default function Statistics() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">Fisika #42</div>
+            <div className="text-2xl font-bold">Penalaran Matematika #42</div>
             <p className="text-xs text-muted-foreground">
               Hanya 23% peserta menjawab benar
             </p>
@@ -153,7 +184,7 @@ export default function Statistics() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">B. Indonesia #12</div>
+            <div className="text-2xl font-bold">Penalaran Umum #12</div>
             <p className="text-xs text-muted-foreground">
               98% peserta menjawab benar
             </p>
@@ -174,7 +205,7 @@ export default function Statistics() {
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
-                  data={subjectData}
+                  data={subjectDataShort}
                   layout="vertical"
                   margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                 >

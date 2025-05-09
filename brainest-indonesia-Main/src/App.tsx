@@ -22,6 +22,8 @@ import History from "./pages/dashboard/History";
 import Profile from "./pages/dashboard/Profile";
 import Settings from "./pages/dashboard/Settings";
 import TryoutLive from "./pages/dashboard/TryoutLive";
+import LeaderboardXP from "./pages/dashboard/LeaderboardXP";
+import ActivityLog from "./pages/dashboard/ActivityLog";
 
 import ExamInterface from "./components/exam/ExamInterface";
 import ExamResult from "./components/exam/ExamResult";
@@ -64,6 +66,8 @@ const App = () => (
                 <Route path="history" element={<History />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="settings" element={<Settings />} />
+                <Route path="leaderboard-xp" element={<LeaderboardXP />} />
+                <Route path="activity-log" element={<ActivityLog />} />
               </Route>
               
               {/* Admin Panel Routes */}

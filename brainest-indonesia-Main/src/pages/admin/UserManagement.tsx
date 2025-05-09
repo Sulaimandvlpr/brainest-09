@@ -127,32 +127,28 @@ export default function UserManagement() {
       </div>
 
       {/* Table */}
-      <div className="bg-[#1e293b] rounded-md shadow">
-        <Table>
+      <div className="bg-[#0f172a] rounded-2xl border border-[#10182a] overflow-hidden shadow-none">
+        <Table className="min-w-full bg-[#0f172a]">
           <TableHeader>
             <TableRow>
-              <TableHead>Nama</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead>Tanggal Daftar</TableHead>
-              <TableHead className="text-right">Aksi</TableHead>
+              <TableHead className="text-white text-lg font-bold">Nama</TableHead>
+              <TableHead className="text-white text-lg font-bold">Email</TableHead>
+              <TableHead className="text-white text-lg font-bold">Role</TableHead>
+              <TableHead className="text-white text-lg font-bold">Tanggal Daftar</TableHead>
+              <TableHead className="text-white text-lg font-bold text-right">Aksi</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {filteredUsers.map((user) => (
-              <TableRow key={user.id}>
-                <TableCell className="font-medium">{user.name}</TableCell>
-                <TableCell>{user.email}</TableCell>
+              <TableRow key={user.id} className="hover:bg-cyan-900/10 transition">
+                <TableCell className="font-medium text-white text-base">{user.name}</TableCell>
+                <TableCell className="text-cyan-100">{user.email}</TableCell>
                 <TableCell>
-                  <span
-                    className={`px-2 py-1 rounded-full text-xs ${
-                      user.role === "admin"
-                        ? "bg-purple-100 text-purple-800"
-                        : user.role === "editor"
-                        ? "bg-blue-100 text-blue-800"
-                        : "bg-gray-100 text-gray-800"
-                    }`}
-                  >
+                  <span className={`inline-block px-4 py-1 rounded-full text-sm font-bold
+                    ${user.role === "admin" ? "bg-purple-100 text-purple-700" : ""}
+                    ${user.role === "editor" ? "bg-blue-100 text-blue-700" : ""}
+                    ${user.role === "user" ? "bg-gray-100 text-gray-700" : ""}
+                  `}>
                     {user.role === "admin"
                       ? "Admin"
                       : user.role === "editor"
@@ -160,13 +156,14 @@ export default function UserManagement() {
                       : "User"}
                   </span>
                 </TableCell>
-                <TableCell>{user.registered}</TableCell>
+                <TableCell className="text-cyan-100">{user.registered}</TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-2">
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={() => resetPassword(user.id, user.name)}
+                      className="bg-[#19213a] text-white border-none shadow-none hover:bg-cyan-900/20"
                     >
                       <Key className="h-4 w-4 mr-1" />
                       Reset
@@ -174,7 +171,7 @@ export default function UserManagement() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="text-red-500 hover:text-red-700"
+                      className="bg-[#19213a] text-red-400 border-none shadow-none hover:bg-pink-900/20"
                       onClick={() => deleteUser(user.id, user.name)}
                     >
                       <UserX className="h-4 w-4" />

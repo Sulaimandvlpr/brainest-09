@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
   BarChart, 
@@ -88,7 +87,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Chart */}
-      <Card>
+      <Card className="rounded-none bg-[#0f172a] shadow-none border-none">
         <CardHeader>
           <CardTitle>Statistik Penggunaan Paket</CardTitle>
         </CardHeader>
@@ -96,11 +95,11 @@ export default function AdminDashboard() {
           <div className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={packageStats}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <RechartsTooltip />
-                <Bar dataKey="users" fill="#8b5cf6" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#fff4" />
+                <XAxis dataKey="name" stroke="#e0e7ef" tick={{ fill: '#e0e7ef', fontSize: 14 }} />
+                <YAxis stroke="#e0e7ef" tick={{ fill: '#e0e7ef', fontSize: 14 }} />
+                <RechartsTooltip contentStyle={{ background: '#1e293b', border: 'none', color: '#fff' }} cursor={{ fill: '#0ea5e933' }} />
+                <Bar dataKey="users" fill="#0ea5e9" radius={[6,6,0,0]} isAnimationActive={false} />
               </BarChart>
             </ResponsiveContainer>
           </div>

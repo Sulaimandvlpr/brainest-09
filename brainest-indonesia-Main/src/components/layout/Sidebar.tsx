@@ -46,6 +46,13 @@ export function Sidebar() {
       label: 'Dashboard',
       icon: <BarChart2 className="h-5 w-5" />,
     },
+    ...((!user || user.role !== 'admin') ? [
+      {
+        href: '/dashboard',
+        label: 'Dashboard',
+        icon: <BarChart2 className="h-5 w-5" />,
+      },
+    ] : []),
     {
       href: '/dashboard/tryout-live',
       label: 'Tryout Live',
@@ -57,31 +64,32 @@ export function Sidebar() {
       icon: <Book className="h-5 w-5" />,
       badge: 2,
     },
-    {
-      href: '/dashboard/history',
-      label: 'Riwayat Tryout',
-      icon: <Calendar className="h-5 w-5" />,
-    },
-    {
-      href: '/dashboard/profile',
-      label: 'Profil',
-      icon: <User className="h-5 w-5" />,
-    },
+    ...((user?.role !== 'admin' && user?.role !== 'editor') ? [
+      {
+        href: '/dashboard/history',
+        label: 'Riwayat Tryout',
+        icon: <Calendar className="h-5 w-5" />,
+      },
+    ] : []),
     {
       href: '/dashboard/leaderboard-xp',
       label: 'Leaderboard',
       icon: <BarChart2 className="h-5 w-5" />,
     },
-    {
-      href: '/dashboard/activity-log',
-      label: 'Riwayat Aktivitas',
-      icon: <Clock className="h-5 w-5" />,
-    },
-    {
-      href: '/dashboard/settings',
-      label: 'Pengaturan',
-      icon: <Settings className="h-5 w-5" />,
-    },
+    ...((user?.role !== 'admin' && user?.role !== 'editor') ? [
+      {
+        href: '/dashboard/activity-log',
+        label: 'Riwayat Aktivitas',
+        icon: <Clock className="h-5 w-5" />,
+      },
+    ] : []),
+    ...(user?.role !== 'admin' ? [
+      {
+        href: '/dashboard/settings',
+        label: 'Pengaturan',
+        icon: <Settings className="h-5 w-5" />,
+      },
+    ] : []),
   ];
 
   const handleLogout = async () => {

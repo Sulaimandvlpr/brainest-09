@@ -176,6 +176,155 @@ export default function Dashboard() {
   // Progress bar (contoh: 80% progress)
   const progress = 80;
 
+  // Dashboard khusus admin
+  if (user?.role === 'admin') {
+    // Dummy statistik global
+    const stats = [
+      { label: 'Total Pengguna', value: 1274, icon: '👥', color: 'from-blue-400 to-cyan-400' },
+      { label: 'Siswa', value: 1100, icon: '🎓', color: 'from-green-400 to-cyan-400' },
+      { label: 'Guru', value: 120, icon: '🧑‍🏫', color: 'from-yellow-400 to-yellow-300' },
+      { label: 'Tryout', value: 16, icon: '📝', color: 'from-blue-500 to-cyan-400' },
+      { label: 'Soal', value: 824, icon: '📄', color: 'from-purple-400 to-blue-400' },
+      { label: 'Paket', value: 8, icon: '📦', color: 'from-pink-400 to-cyan-400' },
+    ];
+    // Dummy aktivitas terbaru
+    const activities = [
+      { type: 'user', desc: 'User baru: Siti Aminah', time: '2 menit lalu' },
+      { type: 'tryout', desc: 'Tryout baru: TPS Batch 2', time: '1 jam lalu' },
+      { type: 'soal', desc: 'Soal baru diupload: #825', time: '3 jam lalu' },
+      { type: 'user', desc: 'User baru: Budi Santoso', time: '5 jam lalu' },
+    ];
+    // Dummy notifikasi penting
+    const notifications = [
+      { type: 'reset', desc: 'Permintaan reset password: rizky@email.com', time: 'Baru saja' },
+      { type: 'error', desc: 'Laporan error: Soal #812 tidak bisa diakses', time: '10 menit lalu' },
+    ];
+    // Dummy data grafik
+    const pesertaPerBulan = [
+      { bulan: 'Jan', peserta: 120 },
+      { bulan: 'Feb', peserta: 140 },
+      { bulan: 'Mar', peserta: 180 },
+      { bulan: 'Apr', peserta: 200 },
+      { bulan: 'Mei', peserta: 220 },
+      { bulan: 'Jun', peserta: 250 },
+    ];
+    const userGrowth = [
+      { bulan: 'Jan', user: 800 },
+      { bulan: 'Feb', user: 900 },
+      { bulan: 'Mar', user: 1000 },
+      { bulan: 'Apr', user: 1100 },
+      { bulan: 'Mei', user: 1200 },
+      { bulan: 'Jun', user: 1274 },
+    ];
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-3d via-blue-3d-light to-cyan/30 font-display">
+        <div className="py-8 px-4 md:px-12">
+          <h1 className="text-3xl font-bold text-white mb-2">Dashboard Admin</h1>
+          <p className="text-blue-200 mb-6">Selamat datang, {user.name}! Berikut ringkasan statistik sistem.</p>
+          {/* Statistik Global */}
+          <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-6 mb-8">
+            {stats.map((s) => (
+              <Card key={s.label} className="rounded-2xl shadow-3d border border-cyan/20 bg-blue-3d-light/60 p-4 flex flex-col items-center">
+                <div className={`h-12 w-12 rounded-full flex items-center justify-center shadow-3d bg-gradient-to-br ${s.color} mb-2`}>
+                  <span className="text-2xl">{s.icon}</span>
+                </div>
+                <div className="text-2xl font-bold text-white">{s.value}</div>
+                <div className="text-sm text-blue-200 text-center">{s.label}</div>
+              </Card>
+            ))}
+          </div>
+          {/* Akses Cepat */}
+          <div className="flex flex-wrap gap-4 mb-8">
+            <Button asChild variant="3d" className="rounded-full font-bold text-white shadow-3d px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-400">
+              <Link to="/admin/users">Manajemen User</Link>
+            </Button>
+            <Button asChild variant="3d" className="rounded-full font-bold text-white shadow-3d px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-400">
+              <Link to="/admin/questions">Bank Soal</Link>
+            </Button>
+            <Button asChild variant="3d" className="rounded-full font-bold text-white shadow-3d px-6 py-3 bg-gradient-to-r from-green-500 to-cyan-400">
+              <Link to="/admin/statistics">Statistik</Link>
+            </Button>
+          </div>
+          {/* Grafik Ringkas */}
+          <div className="grid md:grid-cols-2 gap-8 mb-8">
+            <Card className="bg-blue-3d/80 rounded-2xl shadow-3d">
+              <CardHeader>
+                <CardTitle className="text-xl font-bold text-white">Peserta Tryout per Bulan</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={220}>
+                  <BarChart data={pesertaPerBulan}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#fff4" />
+                    <XAxis dataKey="bulan" stroke="#e0e7ef" tick={{ fill: '#e0e7ef', fontSize: 14 }} />
+                    <YAxis stroke="#e0e7ef" tick={{ fill: '#e0e7ef', fontSize: 14 }} />
+                    <Tooltip contentStyle={{ background: '#1e293b', border: 'none', color: '#fff' }} cursor={{ fill: '#0ea5e933' }} />
+                    <Bar dataKey="peserta" fill="#0ea5e9" radius={[6,6,0,0]} isAnimationActive={false} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+            <Card className="bg-blue-3d/80 rounded-2xl shadow-3d">
+              <CardHeader>
+                <CardTitle className="text-xl font-bold text-white">Pertumbuhan User</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={220}>
+                  <LineChart data={userGrowth}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#fff4" />
+                    <XAxis dataKey="bulan" stroke="#e0e7ef" tick={{ fill: '#e0e7ef', fontSize: 14 }} />
+                    <YAxis stroke="#e0e7ef" tick={{ fill: '#e0e7ef', fontSize: 14 }} />
+                    <Tooltip contentStyle={{ background: '#1e293b', border: 'none', color: '#fff' }} cursor={{ fill: '#0ea5e933' }} />
+                    <Line type="monotone" dataKey="user" stroke="#0ea5e9" strokeWidth={3} dot={{ r: 6, fill: '#fff', stroke: '#0ea5e9', strokeWidth: 3 }} activeDot={{ r: 8, fill: '#0ea5e9', stroke: '#fff', strokeWidth: 2 }} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+          </div>
+          {/* Aktivitas Terbaru & Notifikasi Penting */}
+          <div className="grid md:grid-cols-2 gap-8 mb-8">
+            <Card className="bg-blue-3d/80 rounded-2xl shadow-3d">
+              <CardHeader>
+                <CardTitle className="text-xl font-bold text-white">Aktivitas Terbaru</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="divide-y divide-blue-200/20">
+                  {activities.map((a, i) => (
+                    <li key={i} className="py-3 flex items-center gap-3">
+                      <span className="text-2xl">
+                        {a.type === 'user' ? '👤' : a.type === 'tryout' ? '📝' : '📄'}
+                      </span>
+                      <span className="text-white font-semibold">{a.desc}</span>
+                      <span className="ml-auto text-xs text-blue-200">{a.time}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+            <Card className="bg-blue-3d/80 rounded-2xl shadow-3d">
+              <CardHeader>
+                <CardTitle className="text-xl font-bold text-white">Notifikasi Penting</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="divide-y divide-blue-200/20">
+                  {notifications.map((n, i) => (
+                    <li key={i} className="py-3 flex items-center gap-3">
+                      <span className="text-2xl">
+                        {n.type === 'reset' ? '🔑' : '⚠️'}
+                      </span>
+                      <span className="text-white font-semibold">{n.desc}</span>
+                      <span className="ml-auto text-xs text-blue-200">{n.time}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Dashboard siswa/guru seperti biasa
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-3d via-blue-3d-light to-cyan/30 font-display">
       {/* Header dengan avatar dan tombol edit */}

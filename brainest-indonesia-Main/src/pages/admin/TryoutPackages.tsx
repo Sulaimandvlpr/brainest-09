@@ -302,69 +302,49 @@ export default function TryoutPackages() {
         </TabsContent>
 
         <TabsContent value="list" className="mt-0">
-          <div className="bg-white rounded-md shadow overflow-hidden">
+          <div className="bg-[#1e293b] rounded-md shadow overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+              <table className="min-w-full divide-y divide-cyan-900">
+                <thead className="bg-[#164e63]">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Nama Paket
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Soal
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Durasi
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Status
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Pendaftar
-                    </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Aksi
-                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-bold text-cyan-100 uppercase tracking-wider">Nama Paket</th>
+                    <th className="px-4 py-3 text-left text-xs font-bold text-cyan-100 uppercase tracking-wider">Soal</th>
+                    <th className="px-4 py-3 text-left text-xs font-bold text-cyan-100 uppercase tracking-wider">Durasi</th>
+                    <th className="px-4 py-3 text-left text-xs font-bold text-cyan-100 uppercase tracking-wider">Status</th>
+                    <th className="px-4 py-3 text-left text-xs font-bold text-cyan-100 uppercase tracking-wider">Pendaftar</th>
+                    <th className="px-4 py-3 text-right text-xs font-bold text-cyan-100 uppercase tracking-wider">Aksi</th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-[#1e293b] divide-y divide-cyan-900">
                   {filteredPackages.map((pkg) => (
-                    <tr key={pkg.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap">
+                    <tr key={pkg.id} className="hover:bg-cyan-950/60 transition">
+                      <td className="px-4 py-3 whitespace-nowrap max-w-[220px]">
                         <div className="flex flex-col">
-                          <div className="text-sm font-medium text-gray-900">{pkg.name}</div>
-                          <div className="text-xs text-gray-500 truncate max-w-xs">{pkg.description}</div>
+                          <div className="text-sm font-semibold text-white">{pkg.name}</div>
+                          <div className="text-xs text-cyan-200 truncate max-w-[180px]">{pkg.description}</div>
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">{pkg.questionCount}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">{pkg.duration}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <Badge variant={pkg.status === "published" ? "default" : "secondary"}>
+                      <td className="px-4 py-3 whitespace-nowrap text-white text-sm">{pkg.questionCount}</td>
+                      <td className="px-4 py-3 whitespace-nowrap text-white text-sm">{pkg.duration}</td>
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold shadow
+                          ${pkg.status === "published" ? "bg-cyan-200 text-cyan-900" : "bg-gray-200 text-gray-700"}
+                        `}>
                           {pkg.status === "published" ? "Dipublikasikan" : "Draft"}
-                        </Badge>
+                        </span>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">{pkg.enrolled}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      <td className="px-4 py-3 whitespace-nowrap text-white text-sm">{pkg.enrolled}</td>
+                      <td className="px-4 py-3 whitespace-nowrap text-right">
                         <div className="flex justify-end gap-2">
-                          <Button variant="outline" size="sm" asChild>
-                            <Link to={`/admin/packages/${pkg.id}/edit`}>
-                              Edit
-                            </Link>
+                          <Button size="icon" variant="ghost" className="rounded-full bg-blue-900/60 hover:bg-cyan-700/80 border border-cyan-700 p-2 shadow-lg" asChild title="Edit">
+                            <Link to={`/admin/packages/${pkg.id}/edit`}><Pencil className="w-5 h-5 text-cyan-200" /></Link>
                           </Button>
-                          <Button variant="outline" size="sm" asChild>
-                            <Link to={`/admin/packages/${pkg.id}`}>
-                              Lihat
-                            </Link>
+                          <Button size="icon" variant="ghost" className="rounded-full bg-blue-900/60 hover:bg-cyan-700/80 border border-cyan-700 p-2 shadow-lg" asChild title="Lihat">
+                            <Link to={`/admin/packages/${pkg.id}`}><Eye className="w-5 h-5 text-cyan-200" /></Link>
                           </Button>
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                              <Button variant="ghost" size="sm">
+                              <Button size="icon" variant="ghost" className="rounded-full bg-blue-900/60 hover:bg-pink-700/80 border border-pink-700 p-2 shadow-lg" title="Lainnya">
                                 ...
                               </Button>
                             </DropdownMenuTrigger>

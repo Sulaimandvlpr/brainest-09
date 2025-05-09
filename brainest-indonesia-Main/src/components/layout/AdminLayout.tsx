@@ -44,7 +44,7 @@ export function AdminLayout() {
     <div className="flex h-screen bg-gradient-to-b from-[#0f172a] via-[#1e293b] to-[#164e63]">
       {/* Sidebar */}
       <div className="hidden md:flex md:w-64 md:flex-col">
-        <div className="flex flex-col flex-grow bg-gradient-to-b from-blue-3d via-blue-3d-light to-cyan/30 shadow-3d border-r border-cyan/20">
+        <div className="flex flex-col flex-grow bg-[#0f172a] border-r border-cyan/20">
           <div className="flex items-center justify-center h-16 px-4 border-b border-cyan/20">
             <h2 className="text-2xl font-bold text-cyan-200 tracking-wide">Admin Panel</h2>
           </div>
@@ -62,7 +62,7 @@ export function AdminLayout() {
               </Link>
               <Link to="/admin/questions" className={cn(
                 "admin-sidebar-link flex items-center gap-3 rounded-lg px-3 py-2 transition-all duration-300 relative hover:scale-105 hover:shadow-[0_0_16px_0_rgba(34,211,238,0.25)] hover:bg-cyan-900/20",
-                location.pathname.startsWith("/admin/questions") ?
+                location.pathname === "/admin/questions" ?
                   "bg-gradient-to-r from-cyan-700/80 to-blue-700/80 text-white shadow-lg border-l-4 border-cyan-400 ring-2 ring-cyan-300/30" :
                   "text-cyan-100 hover:text-white"
               )}>
@@ -133,17 +133,11 @@ export function AdminLayout() {
       {/* Main content */}
       <div className="flex flex-col flex-1 overflow-hidden">
         {/* Header */}
-        <header className="bg-[#1e293b] shadow-sm w-full border-b border-cyan/20">
-          <div className="flex items-center justify-between h-16 px-4">
-            <h1 className="text-xl font-medium">{user?.name || 'Admin'}</h1>
-            <div className="flex items-center">
-              <span className="mr-2 text-sm font-medium text-gray-700">
-                {user?.role === 'admin' ? 'Administrator' : 'Editor'}
-              </span>
-              <div className="h-8 w-8 rounded-full bg-utbk-blue text-white flex items-center justify-center">
-                {user?.name?.[0]?.toUpperCase() || 'A'}
-              </div>
-            </div>
+        <header className="bg-[#0f172a] w-full">
+          <div className="flex items-center justify-between h-16 px-6">
+            <span className="text-base font-medium text-gray-400">
+              {user?.name || 'Admin'}
+            </span>
           </div>
         </header>
 
